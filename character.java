@@ -1,4 +1,4 @@
 class character {
-    private string name;
+    private String name;
     character () {};
 }

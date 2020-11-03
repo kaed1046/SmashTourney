@@ -1,4 +1,4 @@
-class player {
+public class player {
     private character character;
     private decorator skill;
     private int seed;
