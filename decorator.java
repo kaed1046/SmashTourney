@@ -6,4 +6,6 @@ class decorator extends player {
     public void addSkills() {
 
     }
+    //1 to 10
+    //xp
 }

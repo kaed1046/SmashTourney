@@ -1,6 +1,5 @@
 class factory {
     factory () {}
-    public player createPlayer {
-
+    public void createPlayer () {
     }
 }
