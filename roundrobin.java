@@ -2,7 +2,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class roundrobin {
-    private int numrounds;
+    public int numrounds;
+    //TODO: create getters and setters for numRounds and set private
     public roundrobin() {}
     public void setNumrounds(int rounds) {
         numrounds = rounds;

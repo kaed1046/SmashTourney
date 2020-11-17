@@ -81,9 +81,11 @@ class bracket {
         playerArray[31] = "Mikki Mata";
         
         factory playerFactory = new factory();
+        roundrobin fatBird = new roundrobin();
 
         String gameType = "casual";
         int numPlayer = 32;
+        //fatBird.numRounds = 4;
         //set flag for casual game for now
         //excel implementation will add user input for game type
 
@@ -95,11 +97,11 @@ class bracket {
             }//create players, factory implementation
             String gameMode = "solo";
             //set flag for now, testing phase
-            while (gameMode == "solo"){
+            if (gameMode == "solo"){
                 //solo implementation of round robin to create 1v1 bracket
-                roundrobin bird = new roundrobin();
-
-
+                System.out.println("Casual Round Robin begin");
+                fatBird.play(casualPlayerList);
+                System.out.println("Casual Round Robin end");
             }
         }
         else if (gameType == "competitive"){
