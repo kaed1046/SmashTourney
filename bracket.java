@@ -81,6 +81,7 @@ class bracket {
         playerArray[31] = "Mikki Mata";
         
         factory playerFactory = new factory();
+
         String gameType = "casual";
         int numPlayer = 32;
         //set flag for casual game for now
@@ -92,8 +93,21 @@ class bracket {
             for(int i = 0; i < numPlayer; i++){
                 casualPlayerList[i] = playerFactory.createPlayer("casual", playerArray[i]);
             }//create players, factory implementation
+            String gameMode = "solo";
+            //set flag for now, testing phase
+            while (gameMode == "solo"){
+                //solo implementation of round robin to create 1v1 bracket
+                roundrobin bird = new roundrobin();
 
 
+            }
+        }
+        else if (gameType == "competitive"){
+            //loop for pre-excel implementation
+            player[] competitivePlayerList = new player[numPlayer];
+            for(int i = 0; i < numPlayer; i++){
+                competitivePlayerList[i] = playerFactory.createPlayer("competitive", playerArray[i]);
+            }//create players, factory implementation
         }
 
     }

@@ -1,4 +1,4 @@
-public class player {
+public class player extends competitor{
     //private character character;
     static protected String name;
     private decorator skill;

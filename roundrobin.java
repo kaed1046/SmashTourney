@@ -10,10 +10,10 @@ public class roundrobin {
     public int getNumrounds() {
         return numrounds;
     }
-    private static void shuffleArray(team[] array)
+    private static void shuffleArray(competitor[] array)
     {
         int index;
-        team temp;
+        competitor temp;
         Random random = new Random();
         for (int i = array.length - 1; i > 0; i--)
         {
@@ -24,12 +24,12 @@ public class roundrobin {
         }
     } //adapted from stackOverflow: https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
 
-    public void play(team[] teams) {
+    public void play(competitor[] comp) {
         int round = 0;
-        team tempArray[] = new team[teams.length];
+        competitor tempArray[] = new competitor[comp.length];
         while (round < numrounds) {
-            for(int i = 0; i < teams.length; i++) {
-                tempArray[i] = teams[i];
+            for(int i = 0; i < comp.length; i++) {
+                tempArray[i] = comp[i];
             }
             shuffleArray(tempArray);
             for(int i = 0; i < tempArray.length; i++) {
@@ -50,22 +50,23 @@ public class roundrobin {
                         winner = sc.nextInt();
                     }
                     if(winner == 1) {
-                        teams[i].addWin();
-                        teams[j].addLoss();
+                        comp[i].addWin();
+                        comp[j].addLoss();
                     }
                     else {
-                        teams[i].addLoss();
-                        teams[j].addWin();
+                        comp[i].addLoss();
+                        comp[j].addWin();
                     }
-                    teams[i].addTeamPlayed(teams[j]);
-                    teams[j].addTeamPlayed(teams[i]);
+                    comp[i].addCompPlayed(comp[j]);
+                    comp[j].addCompPlayed(comp[i]);
                     tempArray[i] = null;
                     tempArray[j] = null;
                 }
             }
+            round++;
         }
-        for(int i = 0; i < teams.length; i++) {
-            teams[i].resetTeamsPlayed();
+        for(int i = 0; i < comp.length; i++) {
+            comp[i].resetCompPlayed();
         }
     }
 }
