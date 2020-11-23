@@ -45,9 +45,10 @@ class bracket {
         factory playerFactory = new factory();
         roundrobin fatBird = new roundrobin();
 
+
         String gameType = "casual";
         int numPlayer = 32;
-        //fatBird.numRounds = 4;
+        fatBird.setNumrounds(3);
         //set flag for casual game for now
         //excel implementation will add user input for game type
 
@@ -55,7 +56,14 @@ class bracket {
             //loop for pre-excel implementation
             player[] casualPlayerList = new player[numPlayer];
             for(int i = 0; i < numPlayer; i++){
-                casualPlayerList[i] = playerFactory.createPlayer("casual", playerArray[i]);
+                casualPlayerList[i] = playerFactory.createPlayer("casual");
+                casualPlayerList[i].setName(playerArray[i]);
+                System.out.println(casualPlayerList[i].getName());
+            }//create players, factory implementation
+            for(int i = 0; i < numPlayer; i++){
+                //casualPlayerList[i] = playerFactory.createPlayer("casual", playerArray[i]);
+                //System.out.println(playerArray[i]);
+                System.out.println(casualPlayerList[i].getName());
             }//create players, factory implementation
             String gameMode = "solo";
             //set flag for now, testing phase
@@ -70,7 +78,8 @@ class bracket {
             //loop for pre-excel implementation
             player[] competitivePlayerList = new player[numPlayer];
             for(int i = 0; i < numPlayer; i++){
-                competitivePlayerList[i] = playerFactory.createPlayer("competitive", playerArray[i]);
+                competitivePlayerList[i] = playerFactory.createPlayer("competitive");
+                competitivePlayerList[i].setName(playerArray[i]);
             }//create players, factory implementation
         }
 

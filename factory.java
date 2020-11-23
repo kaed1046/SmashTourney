@@ -1,14 +1,14 @@
 class factory {
     factory () {}
-    public player createPlayer (String playerType, String name) {
+    public player createPlayer (String playerType) {
         if(playerType == "competitive") {
-            return new competitiveplayer(name);
+            return new competitiveplayer();
         }
         if(playerType == "casual") {
-            return new casualplayer(name);
+            return new casualplayer();
         }
         if(playerType == "combination") {
-            return new combinationplayer(name);
+            return new combinationplayer();
         }
         return null;
     }

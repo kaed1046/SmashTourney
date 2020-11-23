@@ -27,24 +27,36 @@ public class roundrobin {
 
     public void play(competitor[] comp) {
         int round = 0;
+        for(int i = 0; i < comp.length; i++) {
+            System.out.println(i);
+            System.out.println(comp[i].getName());
+        }
         competitor tempArray[] = new competitor[comp.length];
         while (round < numrounds) {
+            System.out.println(round);
             for(int i = 0; i < comp.length; i++) {
                 tempArray[i] = comp[i];
             }
+
             shuffleArray(tempArray);
+            for(int i = 0; i < comp.length; i++) {
+                System.out.println(tempArray[0].checkIfPlayed(tempArray[i]));
+            }
             for(int i = 0; i < tempArray.length; i++) {
+                System.out.println("i = " + i);
                 int j = i;
                 boolean played = true;
                 if(tempArray[i] != null) {
-                    while(played == true) { //go until we find someone not played against
+                    while(played == true && j < 31) { //go until we find someone not played against
                         j++;
                         if(tempArray[j] != null){
+                            System.out.println("j = " + j);
                             played = tempArray[i].checkIfPlayed(tempArray[j]);
+                            System.out.println("played = " + played);
                         }
                     }
                     System.out.println(tempArray[i].getName() + " vs " + tempArray[j].getName());
-                    Scanner sc = new Scanner(System.in); //take user input for # of days
+                    Scanner sc = new Scanner(System.in); //take user input for winner
                     int winner = 0;
                     while(winner != 1 && winner != 2) {
                         System.out.println("Winner: (1 or 2)");
@@ -62,6 +74,7 @@ public class roundrobin {
                     comp[j].addCompPlayed(comp[i]);
                     tempArray[i] = null;
                     tempArray[j] = null;
+                    played = false;
                 }
             }
             round++;

@@ -7,7 +7,7 @@ public class competitor {
 
     private int wins;
     private int losses;
-    private competitor[] played;
+    private competitor[] played = new competitor[50];
     private int numCompetitorsPlayed;
     competitor () {}
     competitor (String name_) {
@@ -43,7 +43,7 @@ public class competitor {
     }
     public boolean checkIfPlayed(competitor otherComp_) {
         for(int i = 0; i < numCompetitorsPlayed; i++) {
-            if(otherComp_.name == played[i].name) {
+            if(otherComp_ == played[i]) {
                 return true;
             }
         }
