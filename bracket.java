@@ -1,50 +1,12 @@
 import java.io.File;
-import jxl.Cell;
+
 class bracket {
     private int numPlayers;
     private int numTeams;
     bracket () {}
-    /*
-    public static void createExcel(File file){
-        try {
-            writeableWorkbook workbook = Workbook.creatWorkbook(new File("firstexcel.xls"));
-            workbook.createSheet("first sheet", 0);
-            workbook.write();
-            workbook.close();
-        }
 
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-    public static void writingExcel(){
-        try {
-            Workbook wb = Workbook.getWorkBook(new File("firstexcelsheet.xls"));
-            WriteableWorkbook copy = Workbook.createWorkbook(new File("firstexcel.xls"), wb);
-            WriteableSheet copySheet = copy.getSheet(0);
-            Label label1 = new Label(0,0,"My name is Kat");
-            copySheet.addCell(label1);
-            copy.write();
-            copy.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-    }*/
     public static void main(String[] args) {
 
-        //roundrobin rr = new roundrobin();
-        //rr.play(teams);
-
-        /*File file = new File("firstExcel.xls");
-        if (!file.exists()){
-            createExcel(file);
-        }
-        else{
-            writingExcel();
-        }*/
-        
         //Some stuff just to test before excel implementation
         String[] playerArray = new String[32];
         playerArray[0] = "Carmon Crothers";

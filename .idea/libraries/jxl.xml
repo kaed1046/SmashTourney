@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="jxl">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/jxl.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/CSharpJExcel (1)/CSharpJExcel/jexcelapi_2_6_12/jexcelapi/jxl.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
