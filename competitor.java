@@ -41,8 +41,14 @@ public class competitor {
     public int getWins() {
         return wins;
     }
+    public competitor getWinList(int i) {
+        return rr_winlist[i];
+    }
     public int getLosses() {
         return losses;
+    }
+    public competitor getLossList(int i) {
+        return rr_loselist[i];
     }
     public void addCompPlayed(competitor comp_) {
         played[numCompetitorsPlayed] = comp_;

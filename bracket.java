@@ -6,7 +6,6 @@ class bracket {
     bracket () {}
 
     public static void main(String[] args) {
-
         //Some stuff just to test before excel implementation
         String[] playerArray = new String[32];
         playerArray[0] = "Carmon Crothers";
@@ -72,6 +71,7 @@ class bracket {
                 System.out.println("Casual Round Robin begin");
                 fatBird.play(casualPlayerList);
                 System.out.println("Casual Round Robin end");
+                fatBird.displayStats(casualPlayerList);
             }
         }
         else if (gameType == "competitive"){

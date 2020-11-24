@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class roundrobin {
     public int numrounds;
-    //TODO: create getters and setters for numRounds and set private
     public roundrobin() {}
     public void setNumrounds(int rounds) {
         numrounds = rounds;
@@ -35,7 +34,7 @@ public class roundrobin {
 //        }
         competitor tempArray[] = new competitor[comp.length];
         while (round < numrounds) {
-            //System.out.println(round);
+            System.out.println("Round: " + round);
             for(int i = 0; i < comp.length; i++) {
                 tempArray[i] = comp[i];
             }
@@ -79,6 +78,21 @@ public class roundrobin {
         }
         for(int i = 0; i < comp.length; i++) {
             comp[i].resetCompPlayed();
+        }
+    }
+
+    public void displayStats(competitor[] comp) {
+        for(int i = 0; i < comp.length; i++) {
+            System.out.println(comp[i].getName());
+            System.out.println("Wins: " + comp[i].getWins());
+            for(int j = 0; j < comp[i].getWins(); j++) {
+                System.out.println(comp[i].getWinList(j).getName());
+            }
+            System.out.println("Losses: " + comp[i].getLosses());
+            for(int j = 0; j < comp[i].getLosses(); j++) {
+                System.out.println(comp[i].getLossList(j).getName());
+            }
+            System.out.println("");
         }
     }
 }

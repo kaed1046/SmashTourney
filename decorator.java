@@ -8,4 +8,5 @@ class decorator extends player {
     }
     //1 to 10
     //xp
+    //handicap
 }
