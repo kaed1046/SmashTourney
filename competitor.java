@@ -6,10 +6,15 @@ public class competitor {
     private observer observer;
 
     private int wins;
+    private competitor[] rr_winlist = new competitor[50];
     private int losses;
+    private competitor[] rr_loselist = new competitor[50];
     private competitor[] played = new competitor[50];
     private int numCompetitorsPlayed;
-    competitor () {}
+    competitor () {
+        wins = 0;
+        losses = 0;
+    }
     competitor (String name_) {
         competitor.name = name_;
     }
@@ -25,10 +30,12 @@ public class competitor {
     public String getName() {
         return name;
     }
-    public void addWin() {
+    public void addWin(competitor w) {
+        rr_winlist[wins] = w;
         wins++;
     }
-    public void addLoss() {
+    public void addLoss(competitor l) {
+        rr_loselist[losses] = l;
         losses++;
     }
     public int getWins() {
@@ -43,7 +50,7 @@ public class competitor {
     }
     public boolean checkIfPlayed(competitor otherComp_) {
         for(int i = 0; i < numCompetitorsPlayed; i++) {
-            if(otherComp_ == played[i]) {
+            if(otherComp_ == played[i]) { //IDENTITY - each object unique
                 return true;
             }
         }

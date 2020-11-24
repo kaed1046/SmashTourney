@@ -29,28 +29,28 @@ public class roundrobin {
 
     public void play(competitor[] comp) {
         int round = 0;
-        for(int i = 0; i < comp.length; i++) {
-            System.out.println(i);
-            System.out.println(comp[i].getName());
-        }
+//        for(int i = 0; i < comp.length; i++) {
+//            System.out.println(i);
+//            System.out.println(comp[i].getName());
+//        }
         competitor tempArray[] = new competitor[comp.length];
         while (round < numrounds) {
-            System.out.println(round);
+            //System.out.println(round);
             for(int i = 0; i < comp.length; i++) {
                 tempArray[i] = comp[i];
             }
             shuffleArrays(tempArray, comp);
             for(int i = 0; i < tempArray.length; i++) {
-                System.out.println("i = " + i);
+                //System.out.println("i = " + i);
                 int j = i;
                 boolean played = true;
                 if(tempArray[i] != null) {
                     while(played == true && j < 31) { //go until we find someone not played against
                         j++;
                         if(tempArray[j] != null){
-                            System.out.println("j = " + j);
+                            //System.out.println("j = " + j);
                             played = tempArray[i].checkIfPlayed(tempArray[j]);
-                            System.out.println("played = " + played);
+                            //System.out.println("played = " + played);
                         }
                     }
                     System.out.println(tempArray[i].getName() + " vs " + tempArray[j].getName());
@@ -61,12 +61,12 @@ public class roundrobin {
                         winner = sc.nextInt();
                     }
                     if(winner == 1) {
-                        comp[i].addWin();
-                        comp[j].addLoss();
+                        comp[i].addWin(comp[j]);
+                        comp[j].addLoss(comp[i]);
                     }
                     else {
-                        comp[i].addLoss();
-                        comp[j].addWin();
+                        comp[i].addLoss(comp[j]);
+                        comp[j].addWin(comp[i]);
                     }
                     comp[i].addCompPlayed(comp[j]);
                     comp[j].addCompPlayed(comp[i]);
