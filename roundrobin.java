@@ -11,17 +11,19 @@ public class roundrobin {
     public int getNumrounds() {
         return numrounds;
     }
-    private static void shuffleArray(competitor[] array)
+    private static void shuffleArrays(competitor[] array1, competitor[] array2)
     {
         int index;
         competitor temp;
         Random random = new Random();
-        for (int i = array.length - 1; i > 0; i--)
+        for (int i = array1.length - 1; i > 0; i--)
         {
             index = random.nextInt(i + 1);
-            temp = array[index];
-            array[index] = array[i];
-            array[i] = temp;
+            temp = array1[index];
+            array1[index] = array1[i];
+            array2[index] = array2[i];
+            array1[i] = temp;
+            array2[i] = temp;
         }
     } //adapted from stackOverflow: https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
 
@@ -37,11 +39,7 @@ public class roundrobin {
             for(int i = 0; i < comp.length; i++) {
                 tempArray[i] = comp[i];
             }
-
-            shuffleArray(tempArray);
-            for(int i = 0; i < comp.length; i++) {
-                System.out.println(tempArray[0].checkIfPlayed(tempArray[i]));
-            }
+            shuffleArrays(tempArray, comp);
             for(int i = 0; i < tempArray.length; i++) {
                 System.out.println("i = " + i);
                 int j = i;
