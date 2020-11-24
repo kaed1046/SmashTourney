@@ -1,6 +1,6 @@
 public class competitor {
     //private character character;
-    static protected String name;
+    protected String name;
     private decorator skill;
     private int seed;
     private observer observer;
@@ -16,7 +16,7 @@ public class competitor {
         losses = 0;
     }
     competitor (String name_) {
-        competitor.name = name_;
+        name = name_;
     }
     public int getSeed() {
         return seed;
