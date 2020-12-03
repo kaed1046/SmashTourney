@@ -57,17 +57,12 @@ class bracket {
             for(int i = 0; i < numPlayer; i++){
                 casualPlayerList[i] = playerFactory.createPlayer("casual");
                 casualPlayerList[i].setName(playerArray[i]);
-                System.out.println(i +" " +  casualPlayerList[i].getName());
-
-
+                //System.out.println(i +" " +  casualPlayerList[i].getName());
             }//create players, factory implementation
-            for(int i = 0; i < numPlayer; i++){
-                //casualPlayerList[i] = playerFactory.createPlayer("casual", playerArray[i]);
-                //System.out.println(playerArray[i]);
-                System.out.println(i + " " + casualPlayerList[i].getName());
-            }//create players, factory implementation
+
             String gameMode = "solo";
             //set flag for now, testing phase
+
             if (gameMode == "solo"){
                 //solo implementation of round robin to create 1v1 bracket
                 System.out.println("Casual Round Robin begin");
