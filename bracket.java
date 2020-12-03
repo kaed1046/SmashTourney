@@ -1,13 +1,37 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 class bracket {
     private int numPlayers;
     private int numTeams;
     bracket () {}
 
-    public static void main(String[] args) {
-        //Some stuff just to test before excel implementation
+    public static void main(String[] args) throws FileNotFoundException {
+        //parsing a CSV file into Scanner class constructor
+        Scanner sc = new Scanner(new File("CompetitivePlayers.csv"));
+        String line;
         String[] playerArray = new String[32];
+        int stringCount = 0;
+        sc.useDelimiter(",");   //sets the delimiter pattern
+        while (sc.hasNext())  //returns a boolean value
+        {
+            line = sc.next();
+            if(line.length() != 0){
+                if(stringCount <= 3){
+                    stringCount++;
+                }
+                else if ((line.charAt(0) >= 65 && line.charAt(0) < 90)||(line.charAt(0) >= 97 && line.charAt(0) < 123) ){
+                    playerArray[stringCount-4] = line;
+                    //print statement for bookkeeping
+                    System.out.print("\nPlayer" + (stringCount-3)+ ": " + playerArray[stringCount-4]);  //find and returns the next complete token from this scanner
+                    stringCount++;
+                }
+            }
+        }
+        sc.close();  //closes the scanner
+        //Some stuff just to test before excel implementation
+        /*String[] playerArray = new String[32];
         playerArray[0] = "Carmon Crothers";
         playerArray[1] = "Hortensia Hulett";
         playerArray[2] = "Idella Isley";
@@ -39,7 +63,7 @@ class bracket {
         playerArray[28] = "Hector Harker";
         playerArray[29] = "Lorrie Lodge";
         playerArray[30] = "Alfredo Ake";
-        playerArray[31] = "Mikki Mata";
+        playerArray[31] = "Mikki Mata";*/
         
         factory playerFactory = new factory();
         roundrobin fatBird = new roundrobin();
