@@ -2,7 +2,6 @@ import java.util.Random;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.io.PrintWriter;
 
 public class roundrobin {
@@ -32,10 +31,6 @@ public class roundrobin {
 
     public void play(competitor[] comp) throws FileNotFoundException {
         int round = 0;
-//        for(int i = 0; i < comp.length; i++) {
-//            System.out.println(i);
-//            System.out.println(comp[i].getName());
-//        }
 
         //initialize excel sheet
         try (PrintWriter writer = new PrintWriter(new File("robin.csv"))) {
@@ -50,7 +45,7 @@ public class roundrobin {
 
             competitor tempArray[] = new competitor[comp.length];
             while (round < numrounds) {
-                System.out.println("Round: " + round);
+                //System.out.println("Round: " + round);
                 for(int i = 0; i < comp.length; i++) {
                     tempArray[i] = comp[i];
                 }
@@ -124,15 +119,23 @@ public class roundrobin {
         String[] arrOfResult = new String[335];
 
         int stringCount = 0;
-        birdWinners.useDelimiter(",");   //sets the delimiter pattern
+        birdWinners.useDelimiter(",|\\n");   //sets the delimiter pattern
         while (birdWinners.hasNext())  //returns a boolean value
         {
             input = birdWinners.next();
-            if(stringCount<2){
+            if(stringCount<3){
                 stringCount++;
             }
             else if(input.length() != 0){
-                String[] arrOfStr = input.split("\n");
+                arrOfResult[stringCount-3] = input;
+                System.out.println("Index"+ (stringCount-3)+ ": **"+arrOfResult[stringCount-3]+"**");
+                stringCount++;
+            }
+            if(stringCount>333){
+                break;
+            }
+            /*else if(input.length() != 0){
+                //String[] arrOfStr = input.split("\n");
 
                 for (String a : arrOfStr) {
                     //                else if ((line.charAt(0) >= 65 && line.charAt(0) < 90)||(line.charAt(0) >= 97 && line.charAt(0) < 123) ){
@@ -143,7 +146,7 @@ public class roundrobin {
                         stringCount++;
                     }
                 }
-            }
+            }*/
 
         }
         birdWinners.close();  //closes the scanner*/
@@ -157,7 +160,12 @@ public class roundrobin {
             tempFive[2] = arrOfResult[i+2];
             tempFive[3] = arrOfResult[i+3];
             tempFive[4] = arrOfResult[i+4];
-            if(tempFive[2]== "1"){
+
+            /*System.out.println("1 equals **" );
+            System.out.println( tempFive[2]+"**");
+
+
+            if("1".equals(tempFive[2])){
                 //winner is tempFive[1];
                 winner = tempFive[1];
                 loser = tempFive[4];
@@ -166,10 +174,13 @@ public class roundrobin {
                 //winner is tempFive[4];
                 winner = tempFive[4];
                 loser = tempFive[1];
-            }
+            }*/
             for(int j = 0; j < 5; j++){
-                System.out.println("index"+j+": "+arrOfResult[i+j]);
-            }
+                System.out.println("index"+j+": **"+tempFive[j]+"**");
+            }/*
+            //System.out.println(winner);
+
+            int kk = 0;
             bean eventbean = new bean();
             competitor tempwinner = new competitor(eventbean);
             competitor temploser = new competitor(eventbean);
@@ -177,7 +188,14 @@ public class roundrobin {
 
             //System.out.println("The winner +++" + winner + "+++");
             for(int j = 0; j < comp.length; j++) {
-                System.out.println("Compare +++"+ winner+ "+++ vs +++" +comp[j].getName()+"+++");
+
+                kk++;
+                //System.out.println(kk+"Compare +++"+ winner+ "+++ vs +++" +comp[j].getName()+"+++");
+
+                if(kk==27){
+                    System.out.println("Compare +++"+ winner+ "+++ vs +++" +comp[j].getName()+"+++");
+
+                }
                 //System.out.println("howdy+++"+ comp[j].getName()+"+++");
 
                 if(comp[j].getName() == winner) {
@@ -194,7 +212,7 @@ public class roundrobin {
                 }
             }
             tempwinner.addWin(temploser);
-            temploser.addLoss(tempwinner);
+            temploser.addLoss(tempwinner);*/
         }
     }
 
