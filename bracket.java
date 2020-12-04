@@ -76,6 +76,7 @@ class bracket {
 
     }
     public void generateBracket(competitor[] playerlist){
+        bean eventbean = new bean();
         int numCompet = playerlist.length;
         int roundNum = 1;
         Scanner scoot = new Scanner(System.in);
@@ -85,6 +86,8 @@ class bracket {
         competitor player2 = null;
         while (numCompet>2){
             if (playerlist.length%2 != 0){
+                decorator decoratedPlayer = new decorator(eventbean);
+                decoratedPlayer.addtoDecorate(playerlist);
                 //player with highest seed gets a buy
                 //implement decorator here
             }
@@ -115,6 +118,9 @@ class bracket {
                 }
                 numCompet--;
                 k++;
+            }
+            for (int a; a < tempplayerlist.){
+                System.out.println(tempplayerlist[a]);
             }
             playerlist = tempplayerlist;
 
