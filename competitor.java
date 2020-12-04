@@ -1,9 +1,13 @@
-public class competitor {
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+public class competitor extends PropertyChangeSupport implements PropertyChangeListener{
     //private character character;
     protected String name;
     private decorator skill;
     private int seed;
-    private observer observer;
+    public boolean seeded;
 
     private int wins;
     private competitor[] rr_winlist = new competitor[50];
@@ -11,13 +15,15 @@ public class competitor {
     private competitor[] rr_loselist = new competitor[50];
     private competitor[] played = new competitor[50];
     private int numCompetitorsPlayed;
-    competitor () {
+    competitor (bean sourcebean) {
+        super(sourcebean);
         wins = 0;
         losses = 0;
+        seeded = false;
     }
-    competitor (String name_) {
-        name = name_;
-    }
+//    competitor (String name_) {
+//        name = name_;
+//    }
     public int getSeed() {
         return seed;
     }
@@ -67,5 +73,12 @@ public class competitor {
             played[i] = null;
         }
         numCompetitorsPlayed = 0;
+    }
+
+
+    public void propertyChange(PropertyChangeEvent event) {
+        if(event.getNewValue() == "done") {
+            System.out.println("Seed for " + name + ": " + getSeed());
+        }
     }
 }

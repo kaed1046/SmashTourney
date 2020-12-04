@@ -1,6 +1,8 @@
 public class competitiveplayer extends player{
-    competitiveplayer () {}
-    competitiveplayer (String name_) {
-        player.name = name_;
+    competitiveplayer (bean sourcebean) {
+        super(sourcebean);
     }
+//    competitiveplayer (String name_) {
+//        player.name = name_;
+//    }
 }

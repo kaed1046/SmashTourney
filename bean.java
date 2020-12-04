@@ -15,6 +15,8 @@ public class bean { //bean to wrap the observable
     private String event;
 
     public void makeEvent(String newEvent) { //for each event, send observer the message
-
+        String oldEvent = this.event;
+        this.event = newEvent;
+        this.pcs.firePropertyChange("value", oldEvent, newEvent);
     }
 }

@@ -4,7 +4,8 @@ class team extends competitor{
     private int losses;
     private team[] played;
     private int numTeamsPlayed;
-    public team () {
+    public team (bean sourcebean) {
+        super(sourcebean);
         team[] played = new team[50];
         for(int i = 0; i < 50; i++) {
             played[i] = null;

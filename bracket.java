@@ -1,14 +1,82 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Arrays;
 
 class bracket {
     private int numPlayers;
     private int numTeams;
     bracket () {}
 
+    public void calculateSeed(competitor[] playerlist, int numrounds) {
+        competitor samewinslist[] = new competitor[playerlist.length];
+        competitor orderedlist[] = new competitor[playerlist.length];
+        int orderedidx = 0;
+        int numwins = numrounds;
+        int sameidx = 0;
+        while(numwins >= 0) {
+            //getting all ppl with same # wins
+            sameidx = 0;
+            for(int i = 0; i < playerlist.length; i++) {
+                if(playerlist[i].getWins() == numwins) {
+                    samewinslist[sameidx] = playerlist[i];
+                    sameidx++;
+                }
+            }
+            if(sameidx == 1) { //1 person in list
+                orderedlist[orderedidx] = samewinslist[0];
+                orderedidx++;
+            }
+            else {
+                //sum # wins of all combined people they beat to order them
+                int totBeatWins = 0;
+                int maxtot = -1;
+                int maxidx = -1;
+                int sameleft = sameidx;
+                bean eventbean = new bean();
+                competitor temp_comp = new competitor(eventbean);
+                while(sameleft > 0) {
+                    totBeatWins = 0;
+                    maxidx = -1;
+                    maxtot = -1;
+                    for(int i = 0; i < sameidx; i++) {
+                        if(samewinslist[i].seeded == false){
+                            for(int j = 0; j < samewinslist[i].getWins(); j++) {
+                                totBeatWins += samewinslist[i].getWinList(j).getWins();
+                            }
+                            //System.out.println(totBeatWins);
+                            if(totBeatWins > maxtot) {
+                                maxtot = totBeatWins;
+                                temp_comp = samewinslist[i];
+                                maxidx = i;
+                            }
+                            totBeatWins = 0;
+                        }
+                    }
+                    orderedlist[orderedidx] = temp_comp;
+                    //System.out.println(orderedlist[orderedidx].getName() + " " + maxtot);
+                    orderedidx++;
+                    samewinslist[maxidx].seeded = true;
+                    sameleft--;
+                }
+            }
+            numwins--;
+            samewinslist = new competitor[playerlist.length];
+        }
+        for(int i = 0; i < orderedlist.length; i++) {
+            //System.out.println(orderedlist[i].getName() + " " + orderedlist[i].getWins());
+            for(int j = 0; j < playerlist.length; j++) {
+                if(orderedlist[i] == playerlist[j]) {
+                    playerlist[j].setSeed(i + 1); //seed is order of orderedlist
+                    //System.out.println(playerlist[j].getName() + " " + playerlist[j].getSeed());
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         //parsing a CSV file into Scanner class constructor
+        bracket b = new bracket();
         Scanner sc = new Scanner(new File("CompetitivePlayers.csv"));
         String line;
         String[] playerArray = new String[32];
@@ -75,12 +143,16 @@ class bracket {
         //set flag for casual game for now
         //excel implementation will add user input for game type
 
+        bean eventbean = new bean();
+        eventbean.makeEvent("started"); //rr not over
+
         if (gameType == "casual"){
             //loop for pre-excel implementation
             player[] casualPlayerList = new player[numPlayer];
             for(int i = 0; i < numPlayer; i++){
                 casualPlayerList[i] = playerFactory.createPlayer("casual");
                 casualPlayerList[i].setName(playerArray[i]);
+                eventbean.addPropertyChangeListener(casualPlayerList[i]);
                 //System.out.println(i +" " +  casualPlayerList[i].getName());
             }//create players, factory implementation
 
@@ -93,6 +165,11 @@ class bracket {
                 fatBird.play(casualPlayerList);
                 System.out.println("Casual Round Robin end");
                 fatBird.displayStats(casualPlayerList);
+                b.calculateSeed(casualPlayerList, 3);
+                for(int i = 0; i < numPlayer; i++) {
+                    System.out.println(casualPlayerList[i].getSeed());
+                }
+                eventbean.makeEvent("done"); //now rr is over
             }
         }
         else if (gameType == "competitive"){
@@ -101,6 +178,7 @@ class bracket {
             for(int i = 0; i < numPlayer; i++){
                 competitivePlayerList[i] = playerFactory.createPlayer("competitive");
                 competitivePlayerList[i].setName(playerArray[i]);
+                eventbean.addPropertyChangeListener(competitivePlayerList[i]);
             }//create players, factory implementation
         }
 

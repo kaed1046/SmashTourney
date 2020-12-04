@@ -1,12 +1,13 @@
 class decorator extends player {
     public player decoratedPlayer;
-    public decorator(player toDecorate){ //DECORATOR - add sauce, filling, and toppings to rolls
+    public decorator(bean sourcebean){ //DECORATOR - add sauce, filling, and toppings to rolls
+        super(sourcebean);
+    }
+    public void addtoDecorate(player toDecorate) {
         decoratedPlayer = toDecorate;
     }
-    public void addSkills() {
-
+    public void addHandicap() {
+        handicap = decoratedPlayer.handicap + 1;
     }
-    //1 to 10
-    //xp
-    //handicap
+
 }

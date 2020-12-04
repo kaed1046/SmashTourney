@@ -1,13 +1,17 @@
 public class player extends competitor{
     //private character character;
-    static protected String name;
+    protected String name;
     private decorator skill;
     private int seed;
-    private observer observer;
-    player () {}
-    player (String name_) {
-        player.name = name_;
+    public int handicap;
+    player (bean sourcebean) {
+        super(sourcebean);
+        handicap = 0;
     }
+//    player (String name_) {
+//        player.name = name_;
+//        handicap = 0;
+//    }
     public int getSeed() {
         return seed;
     }

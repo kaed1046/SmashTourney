@@ -1,6 +1,8 @@
 public class combinationplayer extends player {
-    combinationplayer() {}
-    combinationplayer (String name_) {
-        player.name = name_;
+    combinationplayer(bean sourcebean) {
+        super(sourcebean);
     }
+    //combinationplayer (String name_) {
+//        player.name = name_;
+//    }
 }
