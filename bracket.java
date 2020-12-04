@@ -66,6 +66,7 @@ class bracket {
         for(int i = 0; i < orderedlist.length; i++) {
             for(int j = 0; j < playerlist.length; j++) {
                 if(orderedlist[i] == playerlist[j]) {
+                    System.out.println(playerlist[j].getName() + " " + playerlist[j].getWins());
                     playerlist[j].setSeed(i + 1); //seed is order of orderedlist
                 }
             }
@@ -135,19 +136,19 @@ class bracket {
         factory playerFactory = new factory();
         roundrobin fatBird = new roundrobin();
 
-        Scanner scan = new Scanner(System.in); //take user input for gametype
-        int gtype = 0;
-        String gameType;
-        while(gtype != 1 && gtype != 2) {
-            System.out.println("Game Type: Casual (1) or Competitive (2)");
-            gtype = scan.nextInt();
-        }
-        if(gtype == 1) {
-            gameType = "casual";
-        }
-        else {
-            gameType = "competitive";
-        }
+//        Scanner scan = new Scanner(System.in); //take user input for gametype
+//        int gtype = 0;
+//        String gameType;
+//        while(gtype != 1 && gtype != 2) {
+//            System.out.println("Game Type: Casual (1) or Competitive (2)");
+//            gtype = scan.nextInt();
+//        }
+//        if(gtype == 1) {
+//            gameType = "casual";
+//        }
+//        else {
+//            gameType = "competitive";
+//        }
 
 //        int gmode = 0;
 //        String gameMode;
@@ -162,12 +163,14 @@ class bracket {
 //            gameMode = "team";
 //        }
 
-        Scanner scanrounds = new Scanner(System.in); //take user input for winner
-        int numrounds = 0;
-        while(numrounds < 1 && numrounds > 20) {
-            System.out.println("Number of Rounds in Round Robin: Between 1 and 20");
-            numrounds = scanrounds.nextInt();
-        }
+//        Scanner scanrounds = new Scanner(System.in); //take user input for winner
+//        int numrounds = 0;
+//        while(numrounds < 1 && numrounds > 20) {
+//            System.out.println("Number of Rounds in Round Robin: Between 1 and 20");
+//            numrounds = scanrounds.nextInt();
+//        }
+        int numrounds = 3;
+        String gameType = "casual";
         fatBird.setNumrounds(numrounds);
 
         int numPlayer = 32;

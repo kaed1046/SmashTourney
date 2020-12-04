@@ -1,5 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class roundrobin {
     public int numrounds;
@@ -26,34 +29,55 @@ public class roundrobin {
         }
     } //adapted from stackOverflow: https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
 
-    public void play(competitor[] comp) {
+    public void play(competitor[] comp) throws FileNotFoundException {
         int round = 0;
-//        for(int i = 0; i < comp.length; i++) {
-//            System.out.println(i);
-//            System.out.println(comp[i].getName());
-//        }
-        competitor tempArray[] = new competitor[comp.length];
-        while (round < numrounds) {
-            System.out.println("Round: " + round);
-            for(int i = 0; i < comp.length; i++) {
-                tempArray[i] = comp[i];
-            }
-            shuffleArrays(tempArray, comp);
-            for(int i = 0; i < tempArray.length; i++) {
-                //System.out.println("i = " + i);
-                int j = i;
-                boolean played = true;
-                if(tempArray[i] != null) {
-                    while(played == true && j < 31) { //go until we find someone not played against
-                        j++;
-                        if(tempArray[j] != null){
-                            //System.out.println("j = " + j);
-                            played = tempArray[i].checkIfPlayed(tempArray[j]);
-                            //System.out.println("played = " + played);
+
+        //initialize excel sheet
+        try (PrintWriter writer = new PrintWriter(new File("robin.csv"))) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("id,");
+            sb.append("Name");
+            sb.append(',');
+            sb.append("Winner(1 or 2),");
+            sb.append(',');
+            sb.append('\n');
+
+
+            competitor tempArray[] = new competitor[comp.length];
+            while (round < numrounds) {
+                //System.out.println("Round: " + round);
+                for(int i = 0; i < comp.length; i++) {
+                    tempArray[i] = comp[i];
+                }
+                shuffleArrays(tempArray, comp);
+                for(int i = 0; i < tempArray.length; i++) {
+                    //System.out.println("i = " + i);
+                    int j = i;
+                    boolean played = true;
+                    if(tempArray[i] != null) {
+                        while(played == true && j < 31) { //go until we find someone not played against
+                            j++;
+                            if(tempArray[j] != null){
+                                //System.out.println("j = " + j);
+                                played = tempArray[i].checkIfPlayed(tempArray[j]);
+                                //System.out.println("played = " + played);
+                            }
                         }
-                    }
-                    System.out.println(tempArray[i].getName() + " vs " + tempArray[j].getName());
-                    Scanner sc = new Scanner(System.in); //take user input for winner
+                        //add to excel
+                        sb.append("1");
+                        sb.append(',');
+                        sb.append(tempArray[i].getName());
+                        sb.append(',');
+                        sb.append('\n');
+                        sb.append("2");
+                        sb.append(',');
+                        sb.append(tempArray[j].getName());
+                        sb.append(',');
+                        sb.append('\n');
+                        sb.append('\n');
+
+                        //System.out.println(tempArray[i].getName() + " vs " + tempArray[j].getName());
+                    /*Scanner sc = new Scanner(System.in); //take user input for winner
                     int winner = 0;
                     while(winner != 1 && winner != 2) {
                         System.out.println("Winner: (1 or 2)");
@@ -66,33 +90,145 @@ public class roundrobin {
                     else {
                         comp[i].addLoss(comp[j]);
                         comp[j].addWin(comp[i]);
+                    }*/
+                        comp[i].addCompPlayed(comp[j]);
+                        comp[j].addCompPlayed(comp[i]);
+                        tempArray[i] = null;
+                        tempArray[j] = null;
+                        played = false;
                     }
-                    comp[i].addCompPlayed(comp[j]);
-                    comp[j].addCompPlayed(comp[i]);
-                    tempArray[i] = null;
-                    tempArray[j] = null;
-                    played = false;
+                }
+                round++;
+            }
+            for(int i = 0; i < comp.length; i++) {
+                comp[i].resetCompPlayed();
+            }
+            writer.write(sb.toString());
+
+            System.out.println("Round Robin Generated, download robin.csv to view match-ups");
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Please upload results, Result Filename: ");
+        Scanner birdResult = new Scanner(System.in);
+        String robinResult = birdResult.next();
+        //read in results
+        Scanner birdWinners = new Scanner(new File(robinResult));
+        String input;
+        String[] arrOfResult = new String[335];
+
+        int stringCount = 0;
+        birdWinners.useDelimiter(",|\\n");   //sets the delimiter pattern
+        while (birdWinners.hasNext())  //returns a boolean value
+        {
+            input = birdWinners.next();
+            if(stringCount<3){
+                stringCount++;
+            }
+            else if(input.length() != 0){
+                arrOfResult[stringCount-3] = input;
+                System.out.println("Index"+ (stringCount-3)+ ": **"+arrOfResult[stringCount-3]+"**");
+                stringCount++;
+            }
+            if(stringCount>333){
+                break;
+            }
+            /*else if(input.length() != 0){
+                //String[] arrOfStr = input.split("\n");
+
+                for (String a : arrOfStr) {
+                    //                else if ((line.charAt(0) >= 65 && line.charAt(0) < 90)||(line.charAt(0) >= 97 && line.charAt(0) < 123) ){
+                    if(a.length() != 0) {
+                        if (stringCount >= 3) {
+                            arrOfResult[stringCount-3] = a;
+                        }
+                        stringCount++;
+                    }
+                }
+            }*/
+
+        }
+        birdWinners.close();  //closes the scanner*/
+        //int outnum = 1;
+        String winner;
+        String loser;
+        String[] tempFive = new String[5];
+        for(int i = 0; i < arrOfResult.length -1; i = i+7){
+            tempFive[0] = arrOfResult[i];
+            tempFive[1] = arrOfResult[i+1];
+            tempFive[2] = arrOfResult[i+2];
+            tempFive[3] = arrOfResult[i+3];
+            tempFive[4] = arrOfResult[i+4];
+
+            /*System.out.println("1 equals **" );
+            System.out.println( tempFive[2]+"**");
+
+
+            if("1".equals(tempFive[2])){
+                //winner is tempFive[1];
+                winner = tempFive[1];
+                loser = tempFive[4];
+            }
+            else{
+                //winner is tempFive[4];
+                winner = tempFive[4];
+                loser = tempFive[1];
+            }*/
+            for(int j = 0; j < 5; j++){
+                System.out.println("index"+j+": **"+tempFive[j]+"**");
+            }/*
+            //System.out.println(winner);
+
+            int kk = 0;
+            bean eventbean = new bean();
+            competitor tempwinner = new competitor(eventbean);
+            competitor temploser = new competitor(eventbean);
+            //competitor tempArray[] = new competitor[comp.length];
+
+            //System.out.println("The winner +++" + winner + "+++");
+            for(int j = 0; j < comp.length; j++) {
+
+                kk++;
+                //System.out.println(kk+"Compare +++"+ winner+ "+++ vs +++" +comp[j].getName()+"+++");
+
+                if(kk==27){
+                    System.out.println("Compare +++"+ winner+ "+++ vs +++" +comp[j].getName()+"+++");
+
+                }
+                //System.out.println("howdy+++"+ comp[j].getName()+"+++");
+
+                if(comp[j].getName() == winner) {
+                    //System.out.println("howdy+++"+ comp[j].getName()+"+++");
+
+                    tempwinner = comp[j];
+                    System.out.println("Found" +tempwinner.getName());
+
+
+
+                }
+                if(comp[j].getName() == loser) {
+                    temploser = comp[j];
                 }
             }
-            round++;
-        }
-        for(int i = 0; i < comp.length; i++) {
-            comp[i].resetCompPlayed();
+            tempwinner.addWin(temploser);
+            temploser.addLoss(tempwinner);*/
         }
     }
 
+
     public void displayStats(competitor[] comp) {
         for(int i = 0; i < comp.length; i++) {
-            System.out.println(comp[i].getName());
-            System.out.println("Wins: " + comp[i].getWins());
+            //System.out.println(comp[i].getName());
+            //System.out.println("Wins: " + comp[i].getWins());
             for(int j = 0; j < comp[i].getWins(); j++) {
-                System.out.println(comp[i].getWinList(j).getName());
+                //System.out.println(comp[i].getWinList(j).getName());
             }
-            System.out.println("Losses: " + comp[i].getLosses());
+            //System.out.println("Losses: " + comp[i].getLosses());
             for(int j = 0; j < comp[i].getLosses(); j++) {
-                System.out.println(comp[i].getLossList(j).getName());
+                //System.out.println(comp[i].getLossList(j).getName());
             }
-            System.out.println("");
+            //System.out.println("");
         }
     }
 }
