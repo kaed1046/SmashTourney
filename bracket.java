@@ -66,6 +66,7 @@ class bracket {
         for(int i = 0; i < orderedlist.length; i++) {
             for(int j = 0; j < playerlist.length; j++) {
                 if(orderedlist[i] == playerlist[j]) {
+                    System.out.println(playerlist[j].getName() + " " + playerlist[j].getWins());
                     playerlist[j].setSeed(i + 1); //seed is order of orderedlist
                 }
             }

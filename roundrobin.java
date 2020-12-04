@@ -38,7 +38,7 @@ public class roundrobin {
 //        }
 
         //initialize excel sheet
-        try (PrintWriter writer = new PrintWriter(new File("robin2.csv"))) {
+        try (PrintWriter writer = new PrintWriter(new File("robin.csv"))) {
             StringBuilder sb = new StringBuilder();
             sb.append("id,");
             sb.append("Name");
@@ -147,7 +147,9 @@ public class roundrobin {
 
         }
         birdWinners.close();  //closes the scanner*/
-        int outnum = 1;
+        //int outnum = 1;
+        String winner;
+        String loser;
         String[] tempFive = new String[5];
         for(int i = 0; i < arrOfResult.length -1; i = i+7){
             tempFive[0] = arrOfResult[i];
@@ -157,13 +159,42 @@ public class roundrobin {
             tempFive[4] = arrOfResult[i+4];
             if(tempFive[2]== "1"){
                 //winner is tempFive[1];
+                winner = tempFive[1];
+                loser = tempFive[4];
             }
             else{
                 //winner is tempFive[4];
+                winner = tempFive[4];
+                loser = tempFive[1];
             }
             for(int j = 0; j < 5; j++){
                 System.out.println("index"+j+": "+arrOfResult[i+j]);
             }
+            bean eventbean = new bean();
+            competitor tempwinner = new competitor(eventbean);
+            competitor temploser = new competitor(eventbean);
+            //competitor tempArray[] = new competitor[comp.length];
+
+            //System.out.println("The winner +++" + winner + "+++");
+            for(int j = 0; j < comp.length; j++) {
+                System.out.println("Compare +++"+ winner+ "+++ vs +++" +comp[j].getName()+"+++");
+                //System.out.println("howdy+++"+ comp[j].getName()+"+++");
+
+                if(comp[j].getName() == winner) {
+                    //System.out.println("howdy+++"+ comp[j].getName()+"+++");
+
+                    tempwinner = comp[j];
+                    System.out.println("Found" +tempwinner.getName());
+
+
+
+                }
+                if(comp[j].getName() == loser) {
+                    temploser = comp[j];
+                }
+            }
+            tempwinner.addWin(temploser);
+            temploser.addLoss(tempwinner);
         }
     }
 
