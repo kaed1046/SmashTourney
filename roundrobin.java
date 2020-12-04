@@ -116,54 +116,34 @@ public class roundrobin {
         //read in results
         Scanner birdWinners = new Scanner(new File(robinResult));
         String input;
-        String[] arrOfResult = new String[335];
+        String[] arrOfResult = new String[245];
 
         int stringCount = 0;
-        birdWinners.useDelimiter(",|\\n");   //sets the delimiter pattern
+        birdWinners.useDelimiter(",");   //sets the delimiter pattern
         while (birdWinners.hasNext())  //returns a boolean value
         {
             input = birdWinners.next();
-            if(stringCount<3){
-                stringCount++;
-            }
-            else if(input.length() != 0){
+            if(stringCount>=3&&input.length() != 0){
                 arrOfResult[stringCount-3] = input;
-                System.out.println("Index"+ (stringCount-3)+ ": **"+arrOfResult[stringCount-3]+"**");
-                stringCount++;
+                //System.out.println("Index"+ (stringCount-3)+ ": **"+arrOfResult[stringCount-3]+"**");
             }
-            if(stringCount>333){
+            stringCount++;
+
+            if(stringCount>242){
                 break;
             }
-            /*else if(input.length() != 0){
-                //String[] arrOfStr = input.split("\n");
-
-                for (String a : arrOfStr) {
-                    //                else if ((line.charAt(0) >= 65 && line.charAt(0) < 90)||(line.charAt(0) >= 97 && line.charAt(0) < 123) ){
-                    if(a.length() != 0) {
-                        if (stringCount >= 3) {
-                            arrOfResult[stringCount-3] = a;
-                        }
-                        stringCount++;
-                    }
-                }
-            }*/
-
         }
         birdWinners.close();  //closes the scanner*/
         //int outnum = 1;
         String winner;
         String loser;
         String[] tempFive = new String[5];
-        for(int i = 0; i < arrOfResult.length -1; i = i+7){
+        for(int i = 0; i < arrOfResult.length -5; i = i+5){
             tempFive[0] = arrOfResult[i];
             tempFive[1] = arrOfResult[i+1];
             tempFive[2] = arrOfResult[i+2];
             tempFive[3] = arrOfResult[i+3];
             tempFive[4] = arrOfResult[i+4];
-
-            /*System.out.println("1 equals **" );
-            System.out.println( tempFive[2]+"**");
-
 
             if("1".equals(tempFive[2])){
                 //winner is tempFive[1];
@@ -174,45 +154,33 @@ public class roundrobin {
                 //winner is tempFive[4];
                 winner = tempFive[4];
                 loser = tempFive[1];
-            }*/
-            for(int j = 0; j < 5; j++){
-                System.out.println("index"+j+": **"+tempFive[j]+"**");
-            }/*
-            //System.out.println(winner);
+            }
 
-            int kk = 0;
+
             bean eventbean = new bean();
             competitor tempwinner = new competitor(eventbean);
             competitor temploser = new competitor(eventbean);
             //competitor tempArray[] = new competitor[comp.length];
 
-            //System.out.println("The winner +++" + winner + "+++");
             for(int j = 0; j < comp.length; j++) {
 
-                kk++;
-                //System.out.println(kk+"Compare +++"+ winner+ "+++ vs +++" +comp[j].getName()+"+++");
-
-                if(kk==27){
-                    System.out.println("Compare +++"+ winner+ "+++ vs +++" +comp[j].getName()+"+++");
-
-                }
                 //System.out.println("howdy+++"+ comp[j].getName()+"+++");
 
-                if(comp[j].getName() == winner) {
+                if(comp[j].getName().equals(winner)) {
                     //System.out.println("howdy+++"+ comp[j].getName()+"+++");
 
                     tempwinner = comp[j];
-                    System.out.println("Found" +tempwinner.getName());
-
-
+                    //System.out.println("Player" +tempwinner.getName()+" defeated");
 
                 }
-                if(comp[j].getName() == loser) {
+                if(comp[j].getName().equals(loser)) {
                     temploser = comp[j];
+                    //System.out.println("Player" +temploser.getName());
+
                 }
             }
             tempwinner.addWin(temploser);
-            temploser.addLoss(tempwinner);*/
+            temploser.addLoss(tempwinner);
         }
     }
 
