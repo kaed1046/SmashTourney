@@ -64,11 +64,9 @@ class bracket {
             samewinslist = new competitor[playerlist.length];
         }
         for(int i = 0; i < orderedlist.length; i++) {
-            //System.out.println(orderedlist[i].getName() + " " + orderedlist[i].getWins());
             for(int j = 0; j < playerlist.length; j++) {
                 if(orderedlist[i] == playerlist[j]) {
                     playerlist[j].setSeed(i + 1); //seed is order of orderedlist
-                    //System.out.println(playerlist[j].getName() + " " + playerlist[j].getSeed());
                 }
             }
         }
@@ -136,15 +134,48 @@ class bracket {
         factory playerFactory = new factory();
         roundrobin fatBird = new roundrobin();
 
+        Scanner scan = new Scanner(System.in); //take user input for winner
+        int gtype = 0;
+        String gameType;
+        while(gtype != 1 && gtype != 2) {
+            System.out.println("Game Type: Casual (1) or Competitive (2)");
+            gtype = scan.nextInt();
+        }
+        if(gtype == 1) {
+            gameType = "casual";
+        }
+        else {
+            gameType = "competitive";
+        }
 
-        String gameType = "casual";
+//        int gmode = 0;
+//        String gameMode;
+//        while(gmode != 1 && gmode != 2) {
+//            System.out.println("Game Mode: Solo (1) or Team (2)");
+//            gtype = scan.nextInt();
+//        }
+//        if(gtype == 1) {
+//            gameMode = "solo";
+//        }
+//        else {
+//            gameMode = "team";
+//        }
+
+        int numrounds = 0;
+        while(numrounds < 1 && numrounds > 20) {
+            System.out.println("Number of Rounds in Round Robin: Between 1 and 20");
+            numrounds = scan.nextInt();
+        }
+        fatBird.setNumrounds(numrounds);
+
         int numPlayer = 32;
-        fatBird.setNumrounds(3);
+
         //set flag for casual game for now
         //excel implementation will add user input for game type
 
         bean eventbean = new bean();
         eventbean.makeEvent("started"); //rr not over
+        String gameMode = "solo";
 
         if (gameType == "casual"){
             //loop for pre-excel implementation
@@ -156,7 +187,7 @@ class bracket {
                 //System.out.println(i +" " +  casualPlayerList[i].getName());
             }//create players, factory implementation
 
-            String gameMode = "solo";
+
             //set flag for now, testing phase
 
             if (gameMode == "solo"){
@@ -165,10 +196,7 @@ class bracket {
                 fatBird.play(casualPlayerList);
                 System.out.println("Casual Round Robin end");
                 fatBird.displayStats(casualPlayerList);
-                b.calculateSeed(casualPlayerList, 3);
-                for(int i = 0; i < numPlayer; i++) {
-                    System.out.println(casualPlayerList[i].getSeed());
-                }
+                b.calculateSeed(casualPlayerList, fatBird.getNumrounds());
                 eventbean.makeEvent("done"); //now rr is over
             }
         }
@@ -180,6 +208,15 @@ class bracket {
                 competitivePlayerList[i].setName(playerArray[i]);
                 eventbean.addPropertyChangeListener(competitivePlayerList[i]);
             }//create players, factory implementation
+            if (gameMode == "solo"){
+                //solo implementation of round robin to create 1v1 bracket
+                System.out.println("Casual Round Robin begin");
+                fatBird.play(competitivePlayerList);
+                System.out.println("Casual Round Robin end");
+                fatBird.displayStats(competitivePlayerList);
+                b.calculateSeed(competitivePlayerList, fatBird.getNumrounds());
+                eventbean.makeEvent("done"); //now rr is over
+            }
         }
 
     }
