@@ -66,7 +66,7 @@ class bracket {
         for(int i = 0; i < orderedlist.length; i++) {
             for(int j = 0; j < playerlist.length; j++) {
                 if(orderedlist[i] == playerlist[j]) {
-                    System.out.println(playerlist[j].getName() + " " + playerlist[j].getWins());
+                    //System.out.println(playerlist[j].getName() + " " + playerlist[j].getWins());
                     playerlist[j].setSeed(i + 1); //seed is order of orderedlist
                 }
             }
@@ -76,22 +76,47 @@ class bracket {
 
     }
     public void generateBracket(competitor[] playerlist){
+        int numCompet = playerlist.length;
+        int roundNum = 1;
+        Scanner scoot = new Scanner(System.in);
+        int movesOn;
+
         competitor player1 = null;
         competitor player2 = null;
-        if (playerlist.length%2 != 0){
-            //player with highest seed gets a buy
-            //implement decorator here
-        }
-        for (int i = 0; i < (playerlist.length)/2; i++){
-            for(int j = 0; j < playerlist.length; j++){
-                if(playerlist[j].getSeed() == (i+1)){
-                    player1 = playerlist[j];
-                }
-                else if(playerlist[j].getSeed() == (playerlist.length-i)){
-                    player2 = playerlist[j];
-                }
+        while (numCompet>2){
+            if (playerlist.length%2 != 0){
+                //player with highest seed gets a buy
+                //implement decorator here
             }
-            System.out.println("Seed "+ (i+1)+ ": " + player1.getName()+ " vs. Seed "+ (playerlist.length-i) +": "+ player2.getName());
+
+            competitor[] tempplayerlist = new competitor[(playerlist.length)/2];
+            System.out.println("Round "+ roundNum);
+            roundNum++;
+            int k = 0;
+
+            for (int i = 0; i < (playerlist.length)/2; i++){
+                for(int j = 0; j < playerlist.length; j++){
+                    if(playerlist[j].getSeed() == (i+1)){
+                        player1 = playerlist[j];
+                    }
+                    if(playerlist[j].getSeed() == (playerlist.length-i)){
+                        player2 = playerlist[j];
+                    }
+                }
+                System.out.println(player1.getSeed()+"seed"+ player1.getName()+ " vs " + player2.getName());
+                System.out.println("Winner: " + player1.getName() + "(1) or "+player2.getName()+" (2)");
+                movesOn = scoot.nextInt();
+                if (movesOn == 1){
+
+                    tempplayerlist[k] = player1;
+                }
+                else{
+                    tempplayerlist[k] = player2;
+                }
+                numCompet--;
+                k++;
+            }
+            playerlist = tempplayerlist;
 
         }
 
