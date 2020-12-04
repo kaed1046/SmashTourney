@@ -72,6 +72,30 @@ class bracket {
             }
         }
     }
+    public void printBracket(competitor[] playerlist) {
+
+    }
+    public void generateBracket(competitor[] playerlist){
+        competitor player1 = null;
+        competitor player2 = null;
+        if (playerlist.length%2 != 0){
+            //player with highest seed gets a buy
+            //implement decorator here
+        }
+        for (int i = 0; i < (playerlist.length)/2; i++){
+            for(int j = 0; j < playerlist.length; j++){
+                if(playerlist[j].getSeed() == (i+1)){
+                    player1 = playerlist[j];
+                }
+                else if(playerlist[j].getSeed() == (playerlist.length-i)){
+                    player2 = playerlist[j];
+                }
+            }
+            System.out.println("Seed "+ (i+1)+ ": " + player1.getName()+ " vs. Seed "+ (playerlist.length-i) +": "+ player2.getName());
+
+        }
+
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         //parsing a CSV file into Scanner class constructor
@@ -176,7 +200,6 @@ class bracket {
         int numPlayer = 32;
 
         //set flag for casual game for now
-        //excel implementation will add user input for game type
 
         bean eventbean = new bean();
         eventbean.makeEvent("started"); //rr not over
@@ -203,10 +226,11 @@ class bracket {
                 fatBird.displayStats(casualPlayerList);
                 b.calculateSeed(casualPlayerList, fatBird.getNumrounds());
                 eventbean.makeEvent("done"); //now rr is over
+
+                b.generateBracket(casualPlayerList);
             }
         }
         else if (gameType == "competitive"){
-            //loop for pre-excel implementation
             player[] competitivePlayerList = new player[numPlayer];
             for(int i = 0; i < numPlayer; i++){
                 competitivePlayerList[i] = playerFactory.createPlayer("competitive");

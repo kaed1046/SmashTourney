@@ -76,21 +76,6 @@ public class roundrobin {
                         sb.append('\n');
                         sb.append('\n');
 
-                        //System.out.println(tempArray[i].getName() + " vs " + tempArray[j].getName());
-                    /*Scanner sc = new Scanner(System.in); //take user input for winner
-                    int winner = 0;
-                    while(winner != 1 && winner != 2) {
-                        System.out.println("Winner: (1 or 2)");
-                        winner = sc.nextInt();
-                    }
-                    if(winner == 1) {
-                        comp[i].addWin(comp[j]);
-                        comp[j].addLoss(comp[i]);
-                    }
-                    else {
-                        comp[i].addLoss(comp[j]);
-                        comp[j].addWin(comp[i]);
-                    }*/
                         comp[i].addCompPlayed(comp[j]);
                         comp[j].addCompPlayed(comp[i]);
                         tempArray[i] = null;
@@ -110,7 +95,7 @@ public class roundrobin {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Please upload results, Result Filename: ");
+        System.out.println("Please upload results, Result Filename(or sample robinResult.csv): ");
         Scanner birdResult = new Scanner(System.in);
         String robinResult = birdResult.next();
         //read in results
@@ -125,7 +110,6 @@ public class roundrobin {
             input = birdWinners.next();
             if(stringCount>=3&&input.length() != 0){
                 arrOfResult[stringCount-3] = input;
-                //System.out.println("Index"+ (stringCount-3)+ ": **"+arrOfResult[stringCount-3]+"**");
             }
             stringCount++;
 
@@ -187,16 +171,16 @@ public class roundrobin {
 
     public void displayStats(competitor[] comp) {
         for(int i = 0; i < comp.length; i++) {
-            //System.out.println(comp[i].getName());
-            //System.out.println("Wins: " + comp[i].getWins());
+            System.out.println(comp[i].getName());
+            System.out.println("Wins: " + comp[i].getWins());
             for(int j = 0; j < comp[i].getWins(); j++) {
-                //System.out.println(comp[i].getWinList(j).getName());
+                System.out.println(comp[i].getWinList(j).getName());
             }
-            //System.out.println("Losses: " + comp[i].getLosses());
+            System.out.println("Losses: " + comp[i].getLosses());
             for(int j = 0; j < comp[i].getLosses(); j++) {
-                //System.out.println(comp[i].getLossList(j).getName());
+                System.out.println(comp[i].getLossList(j).getName());
             }
-            //System.out.println("");
+            System.out.println("");
         }
     }
 }
