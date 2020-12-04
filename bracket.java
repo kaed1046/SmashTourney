@@ -95,6 +95,7 @@ class bracket {
                 }
             }
         }
+        System.out.print("\n");
         sc.close();  //closes the scanner
         //Some stuff just to test before excel implementation
         /*String[] playerArray = new String[32];
@@ -134,7 +135,7 @@ class bracket {
         factory playerFactory = new factory();
         roundrobin fatBird = new roundrobin();
 
-        Scanner scan = new Scanner(System.in); //take user input for winner
+        Scanner scan = new Scanner(System.in); //take user input for gametype
         int gtype = 0;
         String gameType;
         while(gtype != 1 && gtype != 2) {
@@ -161,10 +162,11 @@ class bracket {
 //            gameMode = "team";
 //        }
 
+        Scanner scanrounds = new Scanner(System.in); //take user input for winner
         int numrounds = 0;
         while(numrounds < 1 && numrounds > 20) {
             System.out.println("Number of Rounds in Round Robin: Between 1 and 20");
-            numrounds = scan.nextInt();
+            numrounds = scanrounds.nextInt();
         }
         fatBird.setNumrounds(numrounds);
 
