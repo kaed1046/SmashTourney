@@ -27,3 +27,4 @@ Formatting of Entering Round Robin Winners:
 Bracket:
 
 * Each matchup will be displayed in terminal, enter 1 or 2 as winner
+* The top 3 players are decorated with an * to indicate their handicap of 1 less stock

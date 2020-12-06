@@ -8,6 +8,8 @@ class decorator extends player {
     }
     public void addHandicap() {
         handicap = decoratedPlayer.handicap + 1;
+        //name = decoratedPlayer.name+"*";
+        decoratedPlayer.setName(decoratedPlayer.getName()+"*");
     }
 
 }
