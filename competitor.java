@@ -15,6 +15,7 @@ public class competitor extends PropertyChangeSupport implements PropertyChangeL
     private competitor[] rr_loselist = new competitor[50];
     private competitor[] played = new competitor[50];
     private int numCompetitorsPlayed;
+    private boolean dead = false;
     competitor (bean sourcebean) {
         super(sourcebean);
         wins = 0;
@@ -24,6 +25,12 @@ public class competitor extends PropertyChangeSupport implements PropertyChangeL
 //    competitor (String name_) {
 //        name = name_;
 //    }
+    public boolean getDead(){
+        return dead;
+    }
+    public void setDead(boolean dead_){
+        dead = dead_;
+    }
     public int getSeed() {
         return seed;
     }

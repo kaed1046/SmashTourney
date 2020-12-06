@@ -71,6 +71,10 @@ class bracket {
                 }
             }
         }
+        for(int i = 0; i < playerlist.length; i++) {
+            playerlist[i] = orderedlist[i];
+            //System.out.println("Seed"+i+": "+playerlist[i].name);
+        }
     }
     public void printBracket(competitor[] playerlist) {
 
@@ -84,42 +88,56 @@ class bracket {
 
         competitor player1 = null;
         competitor player2 = null;
-        while (numCompet>2){
-
-
-            competitor[] tempplayerlist = new competitor[(playerlist.length)/2];
-            System.out.println("Round "+ roundNum);
-            roundNum++;
+        while (numCompet>=2){
+            int counter = 0;
+            int j = 0;
+            int l = numCompet-1;
             int k = 0;
+            System.out.println("Round " + roundNum);
+            roundNum++;
+            competitor[] tempplayerlist = new competitor[numCompet / 2];
+            while(counter < numCompet/2) {
 
-            for (int i = 0; i < (playerlist.length)/2; i++){
-                for(int j = 0; j < playerlist.length; j++){
-                    if(playerlist[j].getSeed() == (i+1)){
-                        player1 = playerlist[j];
-                    }
-                    if(playerlist[j].getSeed() == (playerlist.length-i)){
-                        player2 = playerlist[j];
+                //find player 1
+
+                for (int i = j; i < numCompet / 2; i++) {
+                    if (playerlist[i].getDead() == false) {
+                        player1 = playerlist[i];
+                        break;
                     }
                 }
-                System.out.println(player1.getSeed()+"seed"+ player1.getName()+ " vs " + player2.getName());
-                System.out.println("Winner: " + player1.getName() + "(1) or "+player2.getName()+" (2)");
+                //find player 2
+                for (int i = l; i >= numCompet / 2; i--) {
+
+                    if (playerlist[i].getDead() == false) {
+                        player2 = playerlist[i];
+                        break;
+                    }
+                }
+                counter++;
+                System.out.println(player1.getName() + " vs " + player2.getName());
+                System.out.println("Winner: " + player1.getName() + "(1) or " + player2.getName() + " (2)");
                 movesOn = scoot.nextInt();
-                if (movesOn == 1){
-
+                if (movesOn == 1) {
                     tempplayerlist[k] = player1;
-                }
-                else{
+                    player2.setDead(true);
+                } else {
                     tempplayerlist[k] = player2;
+                    player1.setDead(true);
                 }
-                numCompet--;
                 k++;
+                j++;
+                l--;
             }
-            for (int a; a < tempplayerlist.){
-                System.out.println(tempplayerlist[a]);
+            numCompet = numCompet/2;
+            for (int i = 0; i < numCompet; i++){
+                playerlist[i] = tempplayerlist[i];
             }
-            playerlist = tempplayerlist;
-
+            for (int i = 31; i >= numCompet; i--) {
+                playerlist[i] = null;
+            }
         }
+        System.out.println("Congratulations, "+playerlist[0].getName()+ "! You are the new champion!");
 
     }
 
@@ -148,40 +166,6 @@ class bracket {
         }
         System.out.print("\n");
         sc.close();  //closes the scanner
-        //Some stuff just to test before excel implementation
-        /*String[] playerArray = new String[32];
-        playerArray[0] = "Carmon Crothers";
-        playerArray[1] = "Hortensia Hulett";
-        playerArray[2] = "Idella Isley";
-        playerArray[3] = "Jackqueline Jacoby";
-        playerArray[4] = "Mariah Messerly";
-        playerArray[5] = "Justin Jason";
-        playerArray[6] = "Wonda Walley";
-        playerArray[7] = "Minta Mcentyre";
-        playerArray[8] = "Barbar Blandon";
-        playerArray[9] = "Jame Jeffrey";
-        playerArray[10] = "Retha Rodriquez";
-        playerArray[11] = "Carmelo Crichton";
-        playerArray[12] = "Margart Mccright";
-        playerArray[13] = "Migdalia Marte";
-        playerArray[14] = "Yolanda Yingling";
-        playerArray[15] = "Carman Chaloux";
-        playerArray[16] = "Jenelle Jines";
-        playerArray[17] = "Melda Marchi";
-        playerArray[18] = "Jennette Joynes";
-        playerArray[19] = "Eloise Epperson";
-        playerArray[20] = "Verena Voisin";
-        playerArray[21] = "Emilie Everman;";
-        playerArray[22] = "Lara Luedtke";
-        playerArray[23] = "George Gebhart";
-        playerArray[24] = "Lashanda Longoria";
-        playerArray[25] = "Celine Cintron";
-        playerArray[26] = "Hang Hartle";
-        playerArray[27] = "Leonard Lover";
-        playerArray[28] = "Hector Harker";
-        playerArray[29] = "Lorrie Lodge";
-        playerArray[30] = "Alfredo Ake";
-        playerArray[31] = "Mikki Mata";*/
         
         factory playerFactory = new factory();
         roundrobin fatBird = new roundrobin();
@@ -241,9 +225,6 @@ class bracket {
                 //System.out.println(i +" " +  casualPlayerList[i].getName());
             }//create players, factory implementation
 
-
-            //set flag for now, testing phase
-
             if (gameMode == "solo"){
                 //solo implementation of round robin to create 1v1 bracket
                 System.out.println("Casual Round Robin begin");
@@ -280,7 +261,10 @@ class bracket {
                 fatBird.displayStats(competitivePlayerList);
                 b.calculateSeed(competitivePlayerList, fatBird.getNumrounds());
                 eventbean.makeEvent("done"); //now rr is over
+                b.generateBracket(competitivePlayerList);
+
             }
+
         }
 
     }
