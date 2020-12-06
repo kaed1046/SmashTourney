@@ -85,12 +85,7 @@ class bracket {
         competitor player1 = null;
         competitor player2 = null;
         while (numCompet>2){
-            if (playerlist.length%2 != 0){
-                decorator decoratedPlayer = new decorator(eventbean);
-                decoratedPlayer.addtoDecorate(playerlist);
-                //player with highest seed gets a buy
-                //implement decorator here
-            }
+
 
             competitor[] tempplayerlist = new competitor[(playerlist.length)/2];
             System.out.println("Round "+ roundNum);
@@ -257,6 +252,15 @@ class bracket {
                 fatBird.displayStats(casualPlayerList);
                 b.calculateSeed(casualPlayerList, fatBird.getNumrounds());
                 eventbean.makeEvent("done"); //now rr is over
+
+                for(int i = 0; i < casualPlayerList.length; i++) {
+                    //handicap top 3 seeds
+                    if(casualPlayerList[i].getSeed() <= 3) {
+                        decorator decoratedPlayer = new decorator(eventbean);
+                        decoratedPlayer.addtoDecorate(casualPlayerList[i]);
+                        decoratedPlayer.addHandicap();
+                    }
+                }
 
                 b.generateBracket(casualPlayerList);
             }
