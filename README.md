@@ -2,6 +2,10 @@
 
 # Katariya Edfors, Athena Parker
 
+
+Link to video:
+https://drive.google.com/file/d/1Hy-6Im9ctXATqXZ9duuwt5pibCPu3cTc/view?usp=sharing
+
 Special Instructions:
 
 Input a CSV File:
